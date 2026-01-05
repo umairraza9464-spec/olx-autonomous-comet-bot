@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "OLX Auto Lead Bot (Comet-Style)",
+  "version": "2.0.0",
+  "description": "Fully autonomous OLX car lead extractor with auto-browse, owner detection, messaging & sheet sync",
+  "permissions": ["storage", "notifications", "tabs", "webRequest", "activeTab"],
+  "host_permissions": ["*://*.olx.in/*", "https://*/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [{
+    "matches": ["*://*.olx.in/*"],
+    "js": ["stealth.js", "content.js"],
+    "run_at": "document_end"
+  }],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "icons": {
+    "128": "icon.png"
+  }
+}
