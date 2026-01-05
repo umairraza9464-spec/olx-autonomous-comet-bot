@@ -1,4 +1,5 @@
-// OLX Autonomous Bot - Background Service Worker
+// OLX Autonomous Bot - Background Service Worker with Deduplication
+// 15 SEC INTERVAL + NO REPEATED CUSTOMERS
 
 const API_KEYS = {
   groq: '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',
@@ -7,9 +8,17 @@ const API_KEYS = {
 
 let monitoringActive = false;
 let processedListings = new Set();
+let processedNumbers = new Set(); // DEDUPLICATION for phone numbers
 
 chrome.runtime.onInstalled.addListener(() => {
-  console.log('🚗 OLX Auto Lead Bot - INSTALLED & READY');
+  console.log('🚗 OLX Auto Lead Bot v2 - INSTALLED WITH DEDUPLICATION');
+  // Load previously processed numbers from storage
+  chrome.storage.local.get(['processedNumbers'], (result) => {
+    if (result.processedNumbers) {
+      processedNumbers = new Set(result.processedNumbers);
+      console.log(`✅ Loaded ${processedNumbers.size} previously processed numbers`);
+    }
+  });
   chrome.storage.local.set({ monitoringActive: false });
 });
 
@@ -28,13 +37,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 function startMonitoring(settings) {
   monitoringActive = true;
-  console.log('▶️ Monitoring started', settings);
+  console.log('▶️ Monitoring started with 15 SEC INTERVAL + DEDUPLICATION');
   
+  // 15 SECONDS interval instead of 60
   setInterval(() => {
     if (monitoringActive) {
       scanOLXListings(settings);
     }
-  }, (settings.interval || 60) * 1000);
+  }, 15000); // 15 seconds
 }
 
 function stopMonitoring() {
@@ -78,6 +88,13 @@ async function scanOLXListings(settings) {
 }
 
 async function handleLeadData(data) {
+  // CHECK IF NUMBER ALREADY PROCESSED
+  if (processedNumbers.has(data.mobile)) {
+    console.log('⚠️ DUPLICATE DETECTED - SKIPPING:', data.mobile);
+    notifyDuplicate(data.mobile);
+    return; // DON'T PROCESS
+  }
+  
   const webhookUrl = await getWebhookUrl();
   if (!webhookUrl) return;
   
@@ -106,7 +123,15 @@ async function handleLeadData(data) {
     });
     
     if (response.ok) {
-      console.log('✅ Lead saved to sheet:', data.mobile);
+      // ADD TO PROCESSED LIST
+      processedNumbers.add(data.mobile);
+      // SAVE TO STORAGE (persist across restart)
+      chrome.storage.local.set({
+        processedNumbers: Array.from(processedNumbers)
+      });
+      
+      console.log('✅ NEW LEAD - Saved to sheet:', data.mobile);
+      console.log(`📊 Total processed: ${processedNumbers.size}`);
       notifyLeadSaved(data);
     }
   } catch (e) {
@@ -128,9 +153,19 @@ function notifyLeadSaved(lead) {
   chrome.notifications.create({
     type: 'basic',
     iconUrl: 'icon.png',
-    title: '✅ Lead Saved!',
+    title: '✅ UNIQUE LEAD SAVED!',
     message: `${lead.model} - ${lead.mobile}`,
     priority: 2
+  });
+}
+
+function notifyDuplicate(mobile) {
+  chrome.notifications.create({
+    type: 'basic',
+    iconUrl: 'icon.png',
+    title: '⚠️ Duplicate Skipped',
+    message: `${mobile} already in sheet`,
+    priority: 1
   });
 }
 
