@@ -1,0 +1,148 @@
+=============================================================================
+🚗 OLX AUTONOMOUS COMET BOT - QUICK START GUIDE
+=============================================================================
+
+⚠️ IMPORTANT: FOLLOW THESE STEPS EXACTLY - NO SHORTCUTS!
+
+=============================================================================
+STEP 1: DOWNLOAD (2 MINUTES)
+=============================================================================
+
+1. Go to: https://github.com/umairraza9464-spec/olx-autonomous-comet-bot
+2. Click green "Code" button (top right area)
+3. Click "Download ZIP"
+4. ZIP file downloads to Downloads folder
+
+=============================================================================
+STEP 2: EXTRACT ZIP (2 MINUTES)
+=============================================================================
+
+1. Go to Downloads folder
+2. You will see: olx-autonomous-comet-bot-main.zip
+3. RIGHT-CLICK on it
+4. Click "Extract All" (or use WinRAR/7-Zip)
+5. New folder creates: olx-autonomous-comet-bot-main
+
+=============================================================================
+STEP 3: CRITICAL - NAVIGATE TO FILES (1 MINUTE)
+=============================================================================
+
+DOUBLE-CLICK the extracted folder: olx-autonomous-comet-bot-main
+
+You will see THESE FILES directly:
+  ✅ manifest.json (MOST IMPORTANT!)
+  ✅ background.js
+  ✅ content.js
+  ✅ popup.html
+  ✅ popup.js
+  ✅ stealth.js
+  ✅ README.md
+  ✅ INSTALL.md
+  ✅ QUICK-START.txt
+
+IF YOU SEE ANOTHER FOLDER - DOUBLE-CLICK IT TO GET TO THESE FILES!
+
+=============================================================================
+STEP 4: LOAD IN CHROME (2 MINUTES)
+=============================================================================
+
+1. Open Google Chrome (or Edge)
+2. Type this in address bar: chrome://extensions/
+3. Press Enter - Extensions page opens
+4. Look for toggle at TOP-RIGHT that says "Developer mode"
+5. CLICK IT - it turns blue (ON)
+6. Now you'll see 3 buttons - click "Load unpacked"
+7. FILE PICKER DIALOG opens
+8. Navigate to the folder where you see manifest.json
+9. SELECT THAT FOLDER
+10. Click "Select Folder" button
+11. WAIT 2-3 seconds...
+12. Extension appears with name: "🚗 OLX Auto Lead Bot (Comet-Style)"
+13. ✅ EXTENSION INSTALLED SUCCESSFULLY!
+
+=============================================================================
+STEP 5: SETUP EXTENSION (5 MINUTES)
+=============================================================================
+
+1. Click extension icon (top-right of Chrome)
+2. Popup opens - you'll see:
+   - Webhook URL field (empty)
+   - Custom Message field (empty)
+   - START MONITORING button
+
+3. Get Google Sheets Webhook:
+   a. Open Google Sheets
+   b. Click "Extensions" menu
+   c. Click "Apps Script"
+   d. Copy the code from README.md
+   e. Paste in code editor
+   f. Click "Deploy" (top right)
+   g. Select "New deployment"
+   h. Choose "Web app"
+   i. "Execute as" = your email
+   j. "Who has access" = Anyone
+   k. Click Deploy
+   l. Copy the URL that appears
+
+4. Back to Extension Popup:
+   a. Paste webhook URL in "Webhook URL" field
+   b. Type your message in "Custom Message" field
+   c. Leave other settings as default
+   d. Click "START MONITORING"
+   e. ✅ EXTENSION NOW ACTIVE!
+
+=============================================================================
+TROUBLESHOOTING
+=============================================================================
+
+❌ Error: "Manifest file is missing"
+FIX: You selected WRONG FOLDER. Go inside the folder until you see manifest.json file directly.
+
+❌ Extension icon not showing
+FIX: 
+  1. Reload Chrome tab (F5)
+  2. Go back to extensions page (chrome://extensions/)
+  3. Look for "OLX Auto Lead Bot" entry
+  4. Make sure it's enabled (toggle is ON)
+
+❌ Settings not saving
+FIX:
+  1. Check if webhook URL is valid
+  2. Try again with correct URL format
+
+❌ Still stuck?
+  1. Check browser console: F12 → Console tab
+  2. Look for red error messages
+  3. Take screenshot and share error message
+
+=============================================================================
+VIDEO SUMMARY
+=============================================================================
+
+In simple words:
+  1. Download ZIP
+  2. Extract ZIP
+  3. Open extracted folder
+  4. Copy path of this folder
+  5. Chrome → Extensions → Load unpacked → Paste path
+  6. ✅ Done!
+
+=============================================================================
+API KEYS (Already Set)
+=============================================================================
+
+✅ Groq: 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
+✅ Gemini: AIzaSyDhFMt5eDk-bqKi993xZGcbyNVflmXB5Jg
+
+These are already configured - NO NEED TO ADD!
+
+=============================================================================
+SUPPORT
+=============================================================================
+
+For detailed info, read README.md file
+For installation issues, read INSTALL.md file
+
+=============================================================================
+GOOD LUCK! 🚀
+=============================================================================
